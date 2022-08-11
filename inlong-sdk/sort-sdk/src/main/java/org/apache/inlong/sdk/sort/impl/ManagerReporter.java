@@ -26,7 +26,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import org.apache.inlong.sdk.sort.api.ClientContext;
 import org.apache.inlong.sdk.sort.api.InLongTopicFetcher;
-import org.apache.inlong.sdk.sort.api.InLongTopicManager;
+import org.apache.inlong.sdk.sort.manager.InLongSingleTopicManager;
 import org.apache.inlong.sdk.sort.api.ManagerReportHandler;
 import org.apache.inlong.sdk.sort.api.ReportApi;
 import org.apache.inlong.sdk.sort.entity.ConsumeState;
@@ -40,7 +40,7 @@ public class ManagerReporter extends PeriodicTask {
 
     private final ConcurrentHashMap<Integer, Long> reportApiRunTimeMs = new ConcurrentHashMap<>();
     private final ClientContext context;
-    private final InLongTopicManager inLongTopicManager;
+    private final InLongSingleTopicManager inLongSingleTopicManager;
     private final ManagerReportHandler reportHandler;
     private Map<Integer, Long> reportApiInterval = new HashMap<>();
 
@@ -49,17 +49,17 @@ public class ManagerReporter extends PeriodicTask {
      *
      * @param context ClientContext
      * @param reportHandler ManagerReportHandler
-     * @param inLongTopicManager InLongTopicManager
+     * @param inLongSingleTopicManager InLongTopicManager
      * @param runInterval long
      * @param timeUnit TimeUnit
      */
     public ManagerReporter(ClientContext context, ManagerReportHandler reportHandler,
-            InLongTopicManager inLongTopicManager,
+            InLongSingleTopicManager inLongSingleTopicManager,
             long runInterval, TimeUnit timeUnit) {
         super(runInterval, timeUnit, context.getConfig());
         this.context = context;
         this.reportHandler = reportHandler;
-        this.inLongTopicManager = inLongTopicManager;
+        this.inLongSingleTopicManager = inLongSingleTopicManager;
     }
 
     @Override
@@ -159,7 +159,7 @@ public class ManagerReporter extends PeriodicTask {
             consumeStatusParams.setIp(context.getConfig().getLocalIp());
             List<ConsumeState> consumeStates = new ArrayList<>();
             Collection<InLongTopicFetcher> allFetchers =
-                    inLongTopicManager.getAllFetchers();
+                    inLongSingleTopicManager.getAllFetchers();
             for (InLongTopicFetcher fetcher : allFetchers) {
                 ConsumeState consumeState = new ConsumeState();
                 consumeState.setTopic(fetcher.getInLongTopic().getTopic());

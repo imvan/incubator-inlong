@@ -20,7 +20,7 @@ package org.apache.inlong.sdk.sort.impl;
 import org.apache.inlong.sdk.sort.api.Cleanable;
 import org.apache.inlong.sdk.sort.api.ClientContext;
 import org.apache.inlong.sdk.sort.api.InLongTopicFetcher;
-import org.apache.inlong.sdk.sort.api.InLongTopicManager;
+import org.apache.inlong.sdk.sort.manager.InLongSingleTopicManager;
 import org.apache.inlong.sdk.sort.api.ManagerReportHandler;
 import org.apache.inlong.sdk.sort.api.MetricReporter;
 import org.apache.inlong.sdk.sort.api.QueryConsumeConfig;
@@ -39,7 +39,7 @@ public class SortClientImpl extends SortClient {
 
     private final ClientContext context;
 
-    private final InLongTopicManager inLongTopicManager;
+    private final InLongSingleTopicManager inLongSingleTopicManager;
 
     /**
      * SortClient Constructor
@@ -50,7 +50,7 @@ public class SortClientImpl extends SortClient {
         try {
             this.sortClientConfig = sortClientConfig;
             this.context = new ClientContextImpl(this.sortClientConfig, new MetricReporterImpl(sortClientConfig));
-            this.inLongTopicManager = new InLongTopicManagerImpl(context,
+            this.inLongSingleTopicManager = new InLongSingleTopicManagerImpl(context,
                     new QueryConsumeConfigImpl(context));
         } catch (Exception e) {
             this.close();
@@ -71,7 +71,7 @@ public class SortClientImpl extends SortClient {
         try {
             this.sortClientConfig = sortClientConfig;
             this.context = new ClientContextImpl(this.sortClientConfig, metricReporter);
-            this.inLongTopicManager = new InLongTopicManagerImpl(context, queryConsumeConfig);
+            this.inLongSingleTopicManager = new InLongSingleTopicManagerImpl(context, queryConsumeConfig);
         } catch (Exception e) {
             e.printStackTrace();
             this.close();
@@ -113,7 +113,7 @@ public class SortClientImpl extends SortClient {
      */
     @Override
     public boolean close() {
-        boolean cleanInLongTopicManager = doClose(inLongTopicManager);
+        boolean cleanInLongTopicManager = doClose(inLongSingleTopicManager);
         boolean cleanContext = doClose(context);
 
         logger.info(logPrefix
@@ -129,7 +129,7 @@ public class SortClientImpl extends SortClient {
     }
 
     private InLongTopicFetcher getFetcher(String msgKey) throws NotExistException {
-        InLongTopicFetcher inLongTopicFetcher = inLongTopicManager.getFetcher(msgKey);
+        InLongTopicFetcher inLongTopicFetcher = inLongSingleTopicManager.getFetcher(msgKey);
         if (inLongTopicFetcher == null) {
             throw new NotExistException(msgKey + " not exist.");
         }

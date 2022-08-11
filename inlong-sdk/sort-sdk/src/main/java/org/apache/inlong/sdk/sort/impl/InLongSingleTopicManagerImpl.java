@@ -30,7 +30,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 import org.apache.inlong.sdk.sort.api.ClientContext;
 import org.apache.inlong.sdk.sort.api.InLongTopicFetcher;
-import org.apache.inlong.sdk.sort.api.InLongTopicManager;
+import org.apache.inlong.sdk.sort.manager.InLongSingleTopicManager;
 import org.apache.inlong.sdk.sort.api.InlongTopicTypeEnum;
 import org.apache.inlong.sdk.sort.api.QueryConsumeConfig;
 import org.apache.inlong.sdk.sort.entity.ConsumeConfig;
@@ -49,9 +49,9 @@ import org.apache.pulsar.client.api.PulsarClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class InLongTopicManagerImpl extends InLongTopicManager {
+public class InLongSingleTopicManagerImpl extends InLongSingleTopicManager {
 
-    private final Logger logger = LoggerFactory.getLogger(InLongTopicManagerImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(InLongSingleTopicManagerImpl.class);
 
     private final ConcurrentHashMap<String, InLongTopicFetcher> fetchers
             = new ConcurrentHashMap<>();
@@ -62,7 +62,7 @@ public class InLongTopicManagerImpl extends InLongTopicManager {
     private volatile List<String> toBeSelectFetchers = new ArrayList<>();
     private boolean stopAssign = false;
 
-    public InLongTopicManagerImpl(ClientContext context, QueryConsumeConfig queryConsumeConfig) {
+    public InLongSingleTopicManagerImpl(ClientContext context, QueryConsumeConfig queryConsumeConfig) {
         super(context, queryConsumeConfig);
         updateMetaDataWorker = new UpdateMetaDataThread(context.getConfig().getUpdateMetaDataIntervalSec(),
                 TimeUnit.SECONDS);

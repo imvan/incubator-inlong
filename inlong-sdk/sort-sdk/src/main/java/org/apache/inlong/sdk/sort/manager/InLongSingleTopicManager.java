@@ -13,20 +13,26 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
+ *
  */
 
-package org.apache.inlong.sdk.sort.api;
+package org.apache.inlong.sdk.sort.manager;
 
 import java.util.Collection;
 import java.util.Set;
+
+import org.apache.inlong.sdk.sort.api.Cleanable;
+import org.apache.inlong.sdk.sort.api.ClientContext;
+import org.apache.inlong.sdk.sort.api.InLongTopicFetcher;
+import org.apache.inlong.sdk.sort.api.QueryConsumeConfig;
 import org.apache.inlong.sdk.sort.entity.InLongTopic;
 
-public abstract class InLongTopicManager implements Cleanable {
+public abstract class InLongSingleTopicManager implements Cleanable {
 
     protected ClientContext context;
     protected QueryConsumeConfig queryConsumeConfig;
 
-    public InLongTopicManager(ClientContext context, QueryConsumeConfig queryConsumeConfig) {
+    public InLongSingleTopicManager(ClientContext context, QueryConsumeConfig queryConsumeConfig) {
         this.context = context;
         this.queryConsumeConfig = queryConsumeConfig;
     }
