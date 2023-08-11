@@ -38,7 +38,7 @@
         <module>jdbc</module>
         <module>pulsar</module>
 
-        <module>iceberg</module>
+        <!--<module>iceberg</module>-->
         <module>hbase</module>
         <module>postgres-cdc</module>
         <module>mongodb-cdc</module>
