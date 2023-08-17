@@ -49,7 +49,7 @@
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-connector-base</artifactId>
-            <version>${flink.version}</version>
+            <version>1.15-tq-0.1.9</version>
         </dependency>
 
         <dependency>

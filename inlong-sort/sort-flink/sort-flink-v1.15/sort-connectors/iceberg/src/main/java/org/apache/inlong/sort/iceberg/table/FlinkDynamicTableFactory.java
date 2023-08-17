@@ -94,7 +94,7 @@ public class FlinkDynamicTableFactory implements DynamicTableSinkFactory, Dynami
 
     @Override
     public DynamicTableSource createDynamicTableSource(Context context) {
-
+        log.info("start to create dynamic table source");
         ObjectIdentifier objectIdentifier = context.getObjectIdentifier();
         CatalogTable catalogTable = context.getCatalogTable();
         Map<String, String> tableProps = catalogTable.getOptions();
@@ -106,7 +106,7 @@ public class FlinkDynamicTableFactory implements DynamicTableSinkFactory, Dynami
                         tableProps,
                         objectIdentifier.getDatabaseName(),
                         objectIdentifier.getObjectName());
-        log.info("start to create dynamic table source");
+
         return new IcebergTableSource(tableLoader, tableSchema, tableProps, context.getConfiguration());
     }
 

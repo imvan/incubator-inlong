@@ -59,7 +59,7 @@ public class Iceberg2StarRocksSqlParserTest extends AbstractTestBase {
                 new FieldInfo("count", new LongFormatInfo()),
                 new FieldInfo("remark", new StringFormatInfo()),
                 new FieldInfo("send_time", new StringFormatInfo()));
-        String uri = "thrift://ss-qe-nginx-tauth.tencent-distribute.com:9991";
+        String uri = "thrift://ss-qe-nginx-tauth.tencent-distribute.com:8106";
         String database = "test_inlong_iceberg";
         String table = "t_ic_gwe0000000260d";
         String catalogName = "HIVE";

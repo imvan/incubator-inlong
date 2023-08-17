@@ -90,6 +90,7 @@ public class FlinkCatalogFactory implements CatalogFactory {
                 String hiveConfDir = properties.get(HIVE_CONF_DIR);
                 String hadoopConfDir = properties.get(HADOOP_CONF_DIR);
                 Configuration newHadoopConf = mergeHiveConf(hadoopConf, hiveConfDir, hadoopConfDir);
+                log.error("it's hive catalog");
                 return CatalogLoader.hive(name, newHadoopConf, properties);
 
             case ICEBERG_CATALOG_TYPE_HADOOP:
@@ -119,6 +120,7 @@ public class FlinkCatalogFactory implements CatalogFactory {
 
     @Override
     public Catalog createCatalog(String name, Map<String, String> properties) {
+        log.info("start to create catalog name={}, properties={}", name, properties);
         return createCatalog(name, properties, clusterHadoopConf());
     }
 
