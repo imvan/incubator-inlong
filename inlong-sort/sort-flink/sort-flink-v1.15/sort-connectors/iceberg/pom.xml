@@ -215,10 +215,6 @@
                     <artifactId>jackson-databind</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-yarn-server-resourcemanager</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>log4j</groupId>
                     <artifactId>log4j</artifactId>
                 </exclusion>
@@ -238,8 +234,21 @@
         </dependency>
         <dependency>
             <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-common</artifactId>
+            <version>2.8.5-tq-0.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
+            <artifactId>hadoop-mapreduce-client-jobclient</artifactId>
+            <version>2.8.5-tq-0.1.6</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.hadoop</groupId>
             <artifactId>hadoop-common</artifactId>
-            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.hadoop</groupId>
@@ -288,6 +297,7 @@
                                     <include>org.apache.flink:flink-shaded-guava</include>
                                     <!--<include>com.google.protobuf:*</include>-->
                                     <include>org.apache.thrift:*</include>
+                                    <include>org.apache.hadoop:hadoop-mapreduce-client-core</include>
                                     <include>com.facebook.*:*</include>
                                 </includes>
                             </artifactSet>
@@ -310,9 +320,6 @@
                                 <filter>
                                     <artifact>*:*</artifact>
                                     <excludes>
-                                        <exclude>org/apache/hadoop/fs/**</exclude>
-                                        <exclude>org/apache/hadoop/security/**</exclude>
-                                        <exclude>org/apache/hadoop/mapred/**</exclude>
                                         <exclude>com/google/protobuf/**</exclude>
                                         <exclude>com/fasterxml/jackson/**</exclude>
                                     </excludes>
@@ -322,6 +329,10 @@
                                 <relocation>
                                     <pattern>org.apache.inlong.sort.base</pattern>
                                     <shadedPattern>org.apache.inlong.sort.iceberg.shaded.org.apache.inlong.sort.base</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>org.apache.hadoop.mapred</pattern>
+                                    <shadedPattern>org.apache.inlong.sort.iceberg.shaded.org.apache.hadoop.mapred</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
