@@ -37,7 +37,7 @@
 
     <properties>
         <inlong.root.dir>${project.parent.parent.parent.basedir}</inlong.root.dir>
-        <flink.version>1.15-tq-0.1.9</flink.version>
+        <flink.version>1.15-tq-0.1.11</flink.version>
         <debezium.version>1.6.4.Final</debezium.version>
         <flink.connector.mongodb.cdc.version>2.3.0</flink.connector.mongodb.cdc.version>
         <flink.connector.oracle.cdc.version>2.3.0</flink.connector.oracle.cdc.version>
